@@ -26,8 +26,8 @@ public class Customer {
 	@Column(name="phone")
 	private int phone;
 	
-	@Column(name="address")
-	private Address address;
+	// @Column(name="address")
+	// private Address address;
 	
 	@Column(name="dob")
 	private Date dob;
@@ -58,6 +58,6 @@ public class Customer {
 	@Override
 	public String toString() {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		return String.format("Customer [BroncoID=%s, Name=%s %s, Phone=%d, Address=%s, dob=%s", BroncoID, firstName, lastName, phone, address.toString(), formatter.format(dob));
+		return String.format("Customer [BroncoID=%s, Name=%s %s, Phone=%d, Address=%s, dob=%s", BroncoID, firstName, lastName, phone, "", formatter.format(dob));
 	}
 }
