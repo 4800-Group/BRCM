@@ -5,18 +5,18 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import model.dataccess.LoginDataAccess;
-import model.entities.MessageException;
-import model.entities.User;
+import model.dataccess.MaintainCustomerDataAccess;
+import model.entities.Customer;
 
 @SuppressWarnings("serial")
-public class LoginView extends JFrame implements ActionListener {
+public class TestView extends JFrame implements ActionListener {
 
 	private JLabel lblUserName, lblPassword;
 	
@@ -26,7 +26,7 @@ public class LoginView extends JFrame implements ActionListener {
 
 	private JPanel panel1, panel2, panel3;
 	
-	public LoginView() {
+	public TestView() {
 
 		this.initializeComponents();
 
@@ -81,7 +81,7 @@ public class LoginView extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new LoginView();
+		new TestView();
 	}
 
 	public void actionPerformed(ActionEvent event) {
@@ -90,27 +90,9 @@ public class LoginView extends JFrame implements ActionListener {
 				
 				String userName = txtUserName.getText();
 				String password = txtPassword.getText();
-				
-				if (userName.equals("")) {
-					throw new MessageException("Username not informed.");
-				} else if (password.equals("")) {
-					throw new MessageException("Password not informed.");
-				} 
-				
-				User user = new User(userName, password);
-				
-				if (!(new LoginDataAccess().verifyCredentials(user))) {
-					throw new MessageException("Incorrect credentials.");
-				} else {
-					new LoginSuccessView(txtUserName.getText());
-					dispose();
-				}
-				
-			} catch (MessageException e) {
-				JOptionPane.showMessageDialog (null, e.getMessage());
-			} catch (ClassNotFoundException e) {
-				JOptionPane.showMessageDialog (null, e.getMessage());
-			} catch (SQLException e) {
+				Customer user = new MaintainCustomerDataAccess().SearchCustomer(userName);
+				JOptionPane.showMessageDialog (null, user.toString());
+			} catch (Exception e) {
 				JOptionPane.showMessageDialog (null, e.getMessage());
 			}
 		} else {

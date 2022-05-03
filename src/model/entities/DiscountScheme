@@ -1,0 +1,29 @@
+package model.entities;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.text.SimpleDateFormat;
+
+@Entity
+@Table(name="discount")
+public class DiscountScheme {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="discount_id")
+	private int discountID;
+
+	@Column(name="price_discount")
+	private int priceDiscount;
+	
+	@Override
+	public String toString() {
+        return "Discount: $" + priceDiscount
+	}
+	
+}
+
