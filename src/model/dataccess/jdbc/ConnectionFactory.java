@@ -1,4 +1,4 @@
-package jdbc;
+package model.dataccess.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 	
-	private static final String URL = "jdbc:postgresql://localhost:5432/authentication";
+	private static final String URL = "jdbc:postgresql://localhost:5432/BRCM";
 
 	private static final String USER = "postgres";
 

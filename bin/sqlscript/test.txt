@@ -1,0 +1,23 @@
+CREATE SEQUENCE customer_bronco_id_seq;
+
+CREATE TABLE customer (
+                bronco_id VARCHAR NOT NULL DEFAULT nextval('customer_bronco_id_seq'),
+                first_name VARCHAR NOT NULL,
+                last_name VARCHAR NOT NULL,
+                phone INTEGER NOT NULL,
+                dob DATE NOT NULL,
+                department VARCHAR,
+                office VARCHAR,
+                research VARCHAR,
+                enter_date DATE,
+                grad_date DATE,
+                major VARCHAR,
+                minor VARCHAR,
+                CONSTRAINT bronco_id PRIMARY KEY (bronco_id)
+);
+
+
+ALTER SEQUENCE customer_bronco_id_seq OWNED BY customer.bronco_id;
+
+INSERT INTO customer (bronco_id, first_name, last_name, phone, dob)
+VALUES ('1234', 'First', 'Last', 111111111, '2000-11-11')
