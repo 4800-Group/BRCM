@@ -2,6 +2,7 @@ package model.business;
 import java.sql.SQLException;
 
 import model.dataccess.MaintainCustomerDataAccess;
+import model.entities.*;
 
 public class MaintainCustomerBusiness {
     private String customerID;
@@ -13,8 +14,9 @@ public class MaintainCustomerBusiness {
         return instance = instance == null ? new MaintainCustomerBusiness() : instance;
     }
 
-    public boolean verifyBroncoID() throws SQLException, ClassNotFoundException{
-        return null==MaintainCustomerDataAccess.getInstance().SearchCustomer(customerID);
+    public Customer SearchCustomer() throws SQLException, ClassNotFoundException{
+        if (customerID == null) return null;
+        return MaintainCustomerDataAccess.getInstance().SearchCustomer(customerID);
     }
 
     /**

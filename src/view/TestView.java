@@ -90,7 +90,7 @@ public class TestView extends JFrame implements ActionListener {
 				
 				String userName = txtUserName.getText();
 				String password = txtPassword.getText();
-				Customer user = new MaintainCustomerDataAccess().SearchCustomer(userName);
+				Customer user = MaintainCustomerDataAccess.getInstance().SearchCustomer(userName);
 				JOptionPane.showMessageDialog (null, user.toString());
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog (null, e.getMessage());
