@@ -9,7 +9,15 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+
 public class MaintainCustomerDataAccess {
+    // singleton
+    private static MaintainCustomerDataAccess instance;
+	private MaintainCustomerDataAccess () {}
+    public static MaintainCustomerDataAccess getInstance() {
+        return instance = instance == null ? new MaintainCustomerDataAccess() : instance;
+    }
+
 	public Customer SearchCustomer(String broncoID) throws ClassNotFoundException, SQLException {
         SessionFactory factory = new Configuration()
 								.configure("hibernate.cfg.xml")

@@ -25,6 +25,9 @@ public class Customer {
 
 	@Column(name="phone")
 	private int phone;
+
+    // @Column(name="discount")
+    // private float discount;
 	
 	// @Column(name="address")
 	// private Address address;
