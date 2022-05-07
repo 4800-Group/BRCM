@@ -23,11 +23,11 @@ public class ConnectionFactory {
         factory = new Configuration()
 					.configure("hibernate.cfg.xml")
 					.addAnnotatedClass(Customer.class)
-					.addAnnotatedClass(Visit.class)
-					.addAnnotatedClass(Activity.class)
-					.addAnnotatedClass(HistoricalPrice.class)
-					.addAnnotatedClass(Address.class)
-					.addAnnotatedClass(VisitActivity.class)
+					// .addAnnotatedClass(Visit.class)
+					// .addAnnotatedClass(Activity.class)
+					// .addAnnotatedClass(HistoricalPrice.class)
+					// .addAnnotatedClass(Address.class)
+					// .addAnnotatedClass(VisitActivity.class)
 					.buildSessionFactory();
 	}
     public static ConnectionFactory getInstance() {
