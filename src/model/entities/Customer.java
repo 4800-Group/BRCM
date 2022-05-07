@@ -53,7 +53,7 @@ public class Customer {
 	@Column(name="minor")
 	private String minor;
 
-    @OneToOne(mappedBy="customer",cascade=CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.EAGER,mappedBy="customer",cascade=CascadeType.PERSIST)
     private Address address;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade={CascadeType.PERSIST})

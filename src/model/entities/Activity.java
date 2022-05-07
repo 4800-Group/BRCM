@@ -18,10 +18,10 @@ public class Activity {
 	@Column(name="current_price")	
 	private float currentPrice;
 
-    @OneToMany(mappedBy="activity",cascade = {CascadeType.PERSIST})
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="activity",cascade = {CascadeType.PERSIST})
     private List<HistoricalPrice> historicalPrices;
 
-    @OneToMany(mappedBy = "activity", cascade = {CascadeType.PERSIST})
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "activity", cascade = {CascadeType.PERSIST})
     private List<VisitActivity> visitActivities;
 
 	@Override
