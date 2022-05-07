@@ -1,11 +1,8 @@
 package model.entities;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
+import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 
 @Entity
@@ -25,13 +22,10 @@ public class Customer {
 	private String lastName;
 
 	@Column(name="phone")
-	private int phone;
+	private String phone;
 
-    // @Column(name="discount")
-    // private float discount;
-	
-	// @Column(name="address")
-	// private Address address;
+    @Column(name="discount")
+    private float discount;
 	
 	@Column(name="dob")
 	private Date dob;
@@ -58,22 +52,33 @@ public class Customer {
 
 	@Column(name="minor")
 	private String minor;
-	
+
+    @OneToOne(mappedBy="customer",cascade=CascadeType.PERSIST)
+    private Address address;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade={CascadeType.PERSIST})
+    private List<Visit> visits;
+
 	@Override
 	public String toString() {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		return String.format("Customer [BroncoID=%s, Name=%s %s, Phone=%d, Address=%s, dob=%s", broncoID, firstName, lastName, phone, "", formatter.format(dob));
+		return String.format("Customer [BroncoID=%s, Name=%s %s, Phone=%s, Address=%s, dob=%s", broncoID, firstName, lastName, phone, "", formatter.format(dob));
 	}
 
-    public Customer(String broncoID, String fn, String ln, int phone, Date dob) {
+    public Customer(String broncoID, String fn, String ln, String phone, Date dob) {
         this.broncoID = broncoID;
         this.firstName = fn;
         this.lastName = ln;
         this.phone = phone;
         this.dob = dob;
+        this.address = new Address(100, "Mary", "Pomona", "CA", 91982);
+        this.address.setCustomer(this);
     }
 
     public Customer() {}
+
+    
+
 
     /**
      * @return String return the broncoID
@@ -118,17 +123,31 @@ public class Customer {
     }
 
     /**
-     * @return int return the phone
+     * @return String return the phone
      */
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
     /**
      * @param phone the phone to set
      */
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    /**
+     * @return float return the discount
+     */
+    public float getDiscount() {
+        return discount;
+    }
+
+    /**
+     * @param discount the discount to set
+     */
+    public void setDiscount(float discount) {
+        this.discount = discount;
     }
 
     /**
@@ -241,6 +260,34 @@ public class Customer {
      */
     public void setMinor(String minor) {
         this.minor = minor;
+    }
+
+    /**
+     * @return Address return the address
+     */
+    public Address getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    /**
+     * @return List<Visit> return the visits
+     */
+    public List<Visit> getVisits() {
+        return visits;
+    }
+
+    /**
+     * @param visits the visits to set
+     */
+    public void setVisits(List<Visit> visits) {
+        this.visits = visits;
     }
 
 }
