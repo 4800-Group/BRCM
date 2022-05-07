@@ -164,7 +164,7 @@
   <table id="TAB43" populated="true" UUID="6b749a63-5f7a-4212-8e0c-d06f86dc26cb" name="address" objectType="TABLE" physicalName="address" >
    <remarks></remarks>
    <folder id="FOLTAB431" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL44" populated="true" UUID="67a806d0-ba5c-4668-b179-8c98ba347a4f" autoIncrement="false" autoIncrementSequenceName="address_address_id_seq" defaultValue="" name="address_id" nullable="0" physicalName="address_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL44" populated="true" UUID="67a806d0-ba5c-4668-b179-8c98ba347a4f" autoIncrement="true" autoIncrementSequenceName="address_address_id_seq" defaultValue="" name="address_id" nullable="0" physicalName="address_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL45" populated="true" UUID="c03f37b8-fafa-415f-8457-3bbec4274d88" autoIncrement="false" autoIncrementSequenceName="customer_bronco_id_seq_1_1" defaultValue="" name="bronco_id" nullable="0" physicalName="bronco_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
@@ -228,7 +228,7 @@
   <table-link relationship-ref="REL61" pkConnection="0.5230769230769231" fkConnection="0.47465437788018433" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
   <table-link relationship-ref="REL57" pkConnection="0.4947916666666667" fkConnection="0.5023041474654378" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="72"/>
   <table-link relationship-ref="REL59" pkConnection="0.5352112676056338" fkConnection="0.4588235294117647" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
-  <table-link relationship-ref="REL55" pkConnection="0.44075829383886256" fkConnection="0.5590551181102362" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL55" pkConnection="0.45023696682464454" fkConnection="0.5590551181102362" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
  </play-pen>
  <critic-manager>
   <critic-grouping platformType="Generic" enabled="true">
