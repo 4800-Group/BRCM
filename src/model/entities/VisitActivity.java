@@ -14,6 +14,12 @@ import java.text.SimpleDateFormat;
 public class VisitActivity {
 	@Column(name="time")
     private Date time;
+
+    public VisitActivity() {}
+
+    public VisitActivity(Visit visit, Activity activity) {
+        time = new Date();
+    }
 }
 
 

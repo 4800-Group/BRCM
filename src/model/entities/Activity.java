@@ -27,6 +27,8 @@ public class Activity {
 	public String toString() {
 		return String.format("Activity [ActivityID=%d, Name=%s, Price=%.2f", activityID, name, currentPrice);
 	}
+
+    public Activity() {}
 	
 }
 
