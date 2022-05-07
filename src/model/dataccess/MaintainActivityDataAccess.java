@@ -6,26 +6,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.dataccess.connection.ConnectionFactory;
+import model.entities.Activity;
 import model.entities.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 
-public class MaintainCustomerDataAccess {
+public class MaintainActivityDataAccess {
     // singleton
-    private static MaintainCustomerDataAccess instance;
-	private MaintainCustomerDataAccess () {}
-    public static MaintainCustomerDataAccess getInstance() {
-        return instance = instance == null ? new MaintainCustomerDataAccess() : instance;
+    private static MaintainActivityDataAccess instance;
+	private MaintainActivityDataAccess () {}
+    public static MaintainActivityDataAccess getInstance() {
+        return instance = instance == null ? new MaintainActivityDataAccess() : instance;
     }
 
-    public void create(Customer customer) throws SQLException {
+    public void create(Activity activity) throws SQLException {
 		Session session = ConnectionFactory.getInstance().getSession();
         try {
-            System.out.println("Creating customer...");
+            System.out.println("Creating activity...");
             session.beginTransaction();
-            session.save(customer);
+            session.save(activity);
             session.getTransaction().commit();
             System.out.println("Done!");
         }
@@ -34,29 +35,29 @@ public class MaintainCustomerDataAccess {
         }
     }
 
-	public Customer search(String broncoID) throws SQLException {
+	public Activity search(int activityID) throws SQLException {
 		Session session = ConnectionFactory.getInstance().getSession();
-        Customer customer = null;
+        Activity activity = null;
         try {
-            System.out.println("Searching customer...");
+            System.out.println("Searching activity...");
             session.beginTransaction();
-            customer = session.get(Customer.class, broncoID);
+            activity = session.get(Activity.class, activityID);
             session.getTransaction().commit();
             System.out.println("Done!");
         }
         finally {
             session.close();
         }
-        return customer;
+        return activity;
 	}
 
 
-    public void update(Customer customer) throws SQLException {
+    public void update(Activity activity) throws SQLException {
 		Session session = ConnectionFactory.getInstance().getSession();
         try {
-            System.out.println("Updating customer...");
+            System.out.println("Updating activity...");
             session.beginTransaction();
-            session.update(customer);
+            session.update(activity);
             session.getTransaction().commit();
             System.out.println("Done!");
         }
@@ -65,12 +66,12 @@ public class MaintainCustomerDataAccess {
         }
     }
 
-    public void delete(Customer customer) throws SQLException {
+    public void delete(Activity activity) throws SQLException {
 		Session session = ConnectionFactory.getInstance().getSession();
         try {
-            System.out.println("Deleting customer");
+            System.out.println("Deleting activity...");
             session.beginTransaction();
-            session.delete(customer);
+            session.delete(activity);
             session.getTransaction().commit();
             System.out.println("Done!");
         }

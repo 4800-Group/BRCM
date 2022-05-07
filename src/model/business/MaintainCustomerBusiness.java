@@ -5,7 +5,7 @@ import model.dataccess.MaintainCustomerDataAccess;
 import model.entities.*;
 
 public class MaintainCustomerBusiness {
-    private String customerID;
+    private String broncoID;
 
     // singleton implementation
     private static MaintainCustomerBusiness instance;
@@ -14,23 +14,37 @@ public class MaintainCustomerBusiness {
         return instance = instance == null ? new MaintainCustomerBusiness() : instance;
     }
 
-    public Customer SearchCustomer() throws SQLException, ClassNotFoundException{
-        if (customerID == null) return null;
-        return MaintainCustomerDataAccess.getInstance().SearchCustomer(customerID);
+    public void create(Customer customer) throws SQLException {
+        // rules
+        MaintainCustomerDataAccess.getInstance().create(customer);
+    }
+
+    public Customer search() throws SQLException {
+        if (broncoID == null) return null;
+        return MaintainCustomerDataAccess.getInstance().search(broncoID);
+    }
+
+    public void update(Customer customer) throws SQLException {
+        // rules
+        MaintainCustomerDataAccess.getInstance().update(customer);
+    }
+
+    public void delete(Customer customer) throws SQLException {
+        MaintainCustomerDataAccess.getInstance().delete(customer);
     }
 
     /**
-     * @return String return the customerID
+     * @return String return the broncoID
      */
-    public String getCustomerID() {
-        return customerID;
+    public String getBroncoID() {
+        return broncoID;
     }
 
     /**
-     * @param customerID the customerID to set
+     * @param broncoID the broncoID to set
      */
-    public void setCustomerID(String customerID) {
-        this.customerID = customerID;
+    public void setBroncoID(String broncoID) {
+        this.broncoID = broncoID;
     }
 
 }

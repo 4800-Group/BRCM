@@ -21,14 +21,18 @@ public class Visit {
 	@Column(name="time")
 	private Date time;
 	
-	@Column(name="total_price")	
-	private float totalPrice;
+	// @Column(name="total_price")	
+	// private float totalPrice;
 	
 	@Override
 	public String toString() {
-		return String.format("Visit [VisitID=%d, Time= %s, Total price=%.2f", visitID, time.toString(), totalPrice);
+		return String.format("Visit [VisitID=%d, Time= %s", visitID, time.toString());
 	}
-	
+
+    public Visit(Customer customer) {
+        // this.customer = customer;
+        this.time = new Date();
+    }
 }
 
 

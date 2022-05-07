@@ -1,4 +1,4 @@
-package model.dataccess.jdbc;
+package model.dataccess.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

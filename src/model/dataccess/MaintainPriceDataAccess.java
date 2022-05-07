@@ -7,25 +7,27 @@ import java.sql.SQLException;
 
 import model.dataccess.connection.ConnectionFactory;
 import model.entities.Customer;
+import model.entities.HistoricalPrice;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 
-public class MaintainCustomerDataAccess {
+public class MaintainPriceDataAccess {
     // singleton
-    private static MaintainCustomerDataAccess instance;
-	private MaintainCustomerDataAccess () {}
-    public static MaintainCustomerDataAccess getInstance() {
-        return instance = instance == null ? new MaintainCustomerDataAccess() : instance;
+    private static MaintainPriceDataAccess instance;
+	private MaintainPriceDataAccess () {}
+    public static MaintainPriceDataAccess getInstance() {
+        return instance = instance == null ? new MaintainPriceDataAccess() : instance;
     }
 
-    public void create(Customer customer) throws SQLException {
+    public void create(HistoricalPrice price) throws SQLException {
 		Session session = ConnectionFactory.getInstance().getSession();
         try {
             System.out.println("Creating customer...");
             session.beginTransaction();
-            session.save(customer);
+            session.save(price);
             session.getTransaction().commit();
             System.out.println("Done!");
         }
@@ -34,29 +36,29 @@ public class MaintainCustomerDataAccess {
         }
     }
 
-	public Customer search(String broncoID) throws SQLException {
+	public HistoricalPrice search(int priceID) throws SQLException {
 		Session session = ConnectionFactory.getInstance().getSession();
-        Customer customer = null;
+        HistoricalPrice price = null;
         try {
-            System.out.println("Searching customer...");
+            System.out.println("Searching price...");
             session.beginTransaction();
-            customer = session.get(Customer.class, broncoID);
+            price = session.get(HistoricalPrice.class, priceID);
             session.getTransaction().commit();
             System.out.println("Done!");
         }
         finally {
             session.close();
         }
-        return customer;
+        return price;
 	}
 
 
-    public void update(Customer customer) throws SQLException {
+    public void update(HistoricalPrice price) throws SQLException {
 		Session session = ConnectionFactory.getInstance().getSession();
         try {
-            System.out.println("Updating customer...");
+            System.out.println("Updating price...");
             session.beginTransaction();
-            session.update(customer);
+            session.update(price);
             session.getTransaction().commit();
             System.out.println("Done!");
         }
@@ -65,12 +67,12 @@ public class MaintainCustomerDataAccess {
         }
     }
 
-    public void delete(Customer customer) throws SQLException {
+    public void delete(HistoricalPrice price) throws SQLException {
 		Session session = ConnectionFactory.getInstance().getSession();
         try {
-            System.out.println("Deleting customer");
+            System.out.println("Deleting price...");
             session.beginTransaction();
-            session.delete(customer);
+            session.delete(price);
             session.getTransaction().commit();
             System.out.println("Done!");
         }
