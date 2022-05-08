@@ -53,10 +53,10 @@ public class Customer {
 	@Column(name="minor")
 	private String minor;
 
-    @OneToOne(fetch = FetchType.EAGER,mappedBy="customer",cascade=CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.EAGER,mappedBy="customer",cascade=CascadeType.ALL)
     private Address address;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade={CascadeType.PERSIST})
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade={CascadeType.ALL})
     private List<Visit> visits;
 
 	@Override

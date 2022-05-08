@@ -18,11 +18,14 @@ public class Visit {
 	@Column(name="time")
 	private Timestamp time;
 
+	@Column(name="status")
+	private String status;
+
     @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name="bronco_id")
     private Customer customer;
 
-    @OneToMany(cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy="visit", cascade = {CascadeType.ALL})
     private List<VisitActivity> visitActivities;
 
 
@@ -33,6 +36,7 @@ public class Visit {
 
     public Visit(Customer customer) {
         this.customer = customer;
+        this.status = "Complete"; 
         this.time = new Timestamp(new Date().getTime());
     }
 

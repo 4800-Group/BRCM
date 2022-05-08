@@ -22,7 +22,7 @@ public class Activity {
     @OneToMany(mappedBy="activity", cascade = {CascadeType.ALL})
     private List<HistoricalPrice> historicalPrices = new ArrayList<HistoricalPrice>();
 
-    @OneToMany(mappedBy="activity", cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy="activity", cascade = {CascadeType.ALL})
     private List<VisitActivity> visitActivities = new ArrayList<VisitActivity>();
 
 	@Override
