@@ -22,7 +22,7 @@ public class Visit {
     @JoinColumn(name="bronco_id")
     private Customer customer;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy="visit",cascade = {CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.PERSIST})
     private List<VisitActivity> visitActivities;
 
 

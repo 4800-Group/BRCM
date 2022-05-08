@@ -8,8 +8,12 @@ import java.sql.SQLException;
 import java.util.Date;
 import javax.swing.*;
 
+import org.jboss.jandex.Main;
+
 public class MainView extends JFrame {
     private JTabbedPane menu;
+    private MainPanel mainPanel;
+    private ActivityPanel activityPanel;
 
     public MainView() {
         this.init();
@@ -18,15 +22,19 @@ public class MainView extends JFrame {
 
     private void init() {
         this.menu = new JTabbedPane();
+        this.mainPanel = new MainPanel();
+        this.activityPanel = new ActivityPanel();
+
     }
 
     private void build() {
-        this.menu.add("TestPanel", new TestPanel(2));
-        this.menu.add("Sup", new TestPanel(1));
+        this.menu.add("Main", this.mainPanel);
+        this.menu.add("Activities", this.activityPanel);
+
         this.menu.setFocusable(false);
 		this.getContentPane().add(this.menu);
 		this.setTitle("BRCM");
-		this.setBounds(350, 140, 550, 200);
+		this.setBounds(350, 140, 800, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setVisible(true);

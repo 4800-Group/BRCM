@@ -18,15 +18,16 @@ public class Activity {
 	@Column(name="current_price")	
 	private float currentPrice;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy="activity",cascade = {CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.PERSIST})
     private List<HistoricalPrice> historicalPrices;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "activity", cascade = {CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.PERSIST})
     private List<VisitActivity> visitActivities;
 
 	@Override
 	public String toString() {
-		return String.format("Activity [ActivityID=%d, Name=%s, Price=%.2f", activityID, name, currentPrice);
+        return name;
+		// return String.format("Activity [ActivityID=%d, Name=%s, Price=%.2f", activityID, name, currentPrice);
 	}
 
     public Activity() {}
