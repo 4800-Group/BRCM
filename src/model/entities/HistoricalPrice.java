@@ -28,6 +28,12 @@ public class HistoricalPrice {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		return String.format("Historical Price [Date=%s, Price=%.2f]",formatter.format(date), price);
 	}
+
+    public HistoricalPrice(float price, Date date) {
+        this.price= price;
+        this.date = date;
+    }
+    public HistoricalPrice() {}
 	
 
     /**

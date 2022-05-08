@@ -1,4 +1,5 @@
 package model.entities;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
@@ -18,11 +19,11 @@ public class Activity {
 	@Column(name="current_price")	
 	private float currentPrice;
 
-    @OneToMany(cascade = {CascadeType.PERSIST})
-    private List<HistoricalPrice> historicalPrices;
+    @OneToMany(mappedBy="activity", cascade = {CascadeType.PERSIST})
+    private List<HistoricalPrice> historicalPrices = new ArrayList<HistoricalPrice>();
 
-    @OneToMany(cascade = {CascadeType.PERSIST})
-    private List<VisitActivity> visitActivities;
+    @OneToMany(mappedBy="activity", cascade = {CascadeType.PERSIST})
+    private List<VisitActivity> visitActivities = new ArrayList<VisitActivity>();
 
 	@Override
 	public String toString() {
@@ -31,6 +32,12 @@ public class Activity {
 	}
 
     public Activity() {}
+    public Activity(String name, float price) {
+        this.name = name;
+        this.currentPrice = price;
+        historicalPrices.add(new HistoricalPrice(price, new Date()));
+        historicalPrices.get(0).setActivity(this);
+    }
 	
 
     
