@@ -51,6 +51,7 @@ public class ActivityPanel extends JPanel {
         id = new JLabel();
         name = new JLabel();
         price = new JLabel();
+        maintain = new JPanel();
         info = new JPanel();
         info.setLayout(new BoxLayout(info, BoxLayout.Y_AXIS));
         scroll = new JScrollPane(list);
