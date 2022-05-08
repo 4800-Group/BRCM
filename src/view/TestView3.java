@@ -15,12 +15,15 @@ import javax.swing.JTextField;
 
 import org.jboss.jandex.Main;
 
+import model.business.MaintainActivityBusiness;
 import model.business.MaintainCustomerBusiness;
+import model.business.RegisterActivityBusiness;
+import model.business.RegisterVisitBusiness;
 import model.dataccess.MaintainCustomerDataAccess;
-import model.entities.Customer;
+import model.entities.*;
 
 @SuppressWarnings("serial")
-public class TestView extends JFrame implements ActionListener {
+public class TestView3 extends JFrame implements ActionListener {
 
 	private JLabel lblBroncoID, lblPhone;
 	
@@ -30,7 +33,7 @@ public class TestView extends JFrame implements ActionListener {
 
 	private JPanel panel1, panel2, panel3;
 	
-	public TestView() {
+	public TestView3() {
 
 		this.initializeComponents();
 
@@ -42,7 +45,7 @@ public class TestView extends JFrame implements ActionListener {
 		this.lblBroncoID = new JLabel("Bronco ID:   ");
         this.lblPhone = new JLabel("Phone:   ");
 
-		this.buttonCreate = new JButton("create");
+		this.buttonCreate = new JButton("activityNow");
 		this.buttonCreate.addActionListener(this);
 
 		this.buttonRead = new JButton("read");
@@ -93,17 +96,21 @@ public class TestView extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new TestView();
+		new TestView3();
 	}
 
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == this.buttonCreate) {
 			try {
-				String broncoID = txtBroncoID.getText();
-                String phone = txtPhone.getText();
-                Customer customer = new Customer(broncoID, "abc", "edd", phone, new Date());
-                MaintainCustomerBusiness.getInstance().create(customer);
-				JOptionPane.showMessageDialog (null, customer.toString());
+                MaintainCustomerBusiness mcb = MaintainCustomerBusiness.getInstance();
+			    mcb.setBroncoID(txtBroncoID.getText());
+                Customer customer = mcb.search();
+                Visit visit = customer.getVisits().get(0);
+                System.out.println(customer.getVisits());
+                MaintainActivityBusiness mab = MaintainActivityBusiness.getInstance();
+                mab.setActivityID(1);
+                Activity activity = mab.search();
+                RegisterActivityBusiness.getInstance().register(visit, activity);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog (null, e.getMessage());
 			}
@@ -142,3 +149,4 @@ public class TestView extends JFrame implements ActionListener {
 		} 
     }
 }
+

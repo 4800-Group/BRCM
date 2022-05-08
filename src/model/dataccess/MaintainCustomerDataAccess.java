@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.dataccess.connection.ConnectionFactory;
-import model.entities.Customer;
+import model.entities.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -26,6 +26,9 @@ public class MaintainCustomerDataAccess {
             System.out.println("Creating customer...");
             session.beginTransaction();
             session.save(customer);
+            Address a = customer.getAddress();
+            System.out.println(a);
+            session.save(a);
             session.getTransaction().commit();
             System.out.println("Done!");
         }

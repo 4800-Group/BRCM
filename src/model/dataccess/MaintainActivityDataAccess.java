@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.util.List;
 import model.dataccess.connection.ConnectionFactory;
 import model.entities.Activity;
 import model.entities.Customer;
@@ -78,6 +79,22 @@ public class MaintainActivityDataAccess {
         finally {
             session.close();
         }
+    }
+
+    public List<Activity> list() throws SQLException {
+		Session session = ConnectionFactory.getInstance().getSession();
+        List<Activity> result = null;
+        try {
+            System.out.println("Listing activities...");
+            session.beginTransaction();
+            result = session.createQuery("select a from Activity a", Activity.class).getResultList();
+            session.getTransaction().commit();
+            System.out.println("Done!");
+        }
+        finally {
+            session.close();
+        }
+        return result;
     }
 
 
