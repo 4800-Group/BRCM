@@ -29,7 +29,7 @@ public class ActivityPanel extends JPanel {
     private JLabel text4, text5,text6;
     private JTextField txtID, txtName, txtPrice;
     private JPanel info, maintain;
-	private JButton buttonCreate, buttonRead, buttonUpdate, buttonDelete;
+	private JButton buttonCreate, buttonUpdate, buttonDelete;
     private JScrollPane scroll;
 
     public ActivityPanel() {
