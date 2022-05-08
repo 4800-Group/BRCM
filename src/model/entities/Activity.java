@@ -19,7 +19,7 @@ public class Activity {
 	@Column(name="current_price")	
 	private float currentPrice;
 
-    @OneToMany(mappedBy="activity", cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy="activity", cascade = {CascadeType.ALL})
     private List<HistoricalPrice> historicalPrices = new ArrayList<HistoricalPrice>();
 
     @OneToMany(mappedBy="activity", cascade = {CascadeType.PERSIST})
