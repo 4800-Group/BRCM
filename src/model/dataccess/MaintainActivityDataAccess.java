@@ -28,6 +28,7 @@ public class MaintainActivityDataAccess {
             System.out.println("Creating activity...");
             session.beginTransaction();
             session.save(activity);
+            session.save(activity.getHistoricalPrices().get(0));
             session.getTransaction().commit();
             System.out.println("Done!");
         }

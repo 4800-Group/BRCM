@@ -81,8 +81,5 @@ public class MaintainCustomerDataAccess {
             session.close();
         }
     }
-
-
-
 }
 

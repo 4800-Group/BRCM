@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import model.dataccess.connection.ConnectionFactory;
 import model.entities.Activity;
@@ -34,6 +35,23 @@ public class RegisterActivityDataAccess {
         finally {
             session.close();
         }
+    }
+    public List<VisitActivity> list(Visit visit) throws SQLException{
+        Session session = ConnectionFactory.getInstance().getSession();
+        List<VisitActivity> result = null;
+        try {
+            System.out.println("Getting visit activities...");
+            session.beginTransaction();
+            result = session.createQuery("select a from VisitActivity a where a.visit=:visit", VisitActivity.class)
+            .setParameter("visit", visit)
+            .getResultList();
+            session.getTransaction().commit();
+            System.out.println("Done!");
+        }
+        finally {
+            session.close();
+        }
+        return result;
     }
 }
 

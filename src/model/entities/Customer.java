@@ -53,11 +53,11 @@ public class Customer {
 	@Column(name="minor")
 	private String minor;
 
-    @OneToOne(fetch = FetchType.EAGER,mappedBy="customer",cascade=CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.EAGER,mappedBy="customer",cascade=CascadeType.ALL)
     private Address address;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade={CascadeType.PERSIST})
-    private List<Visit> visits;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade={CascadeType.ALL})
+    private List<Visit> visits = new ArrayList<Visit>();
 
 	@Override
 	public String toString() {
@@ -76,6 +76,10 @@ public class Customer {
     }
 
     public Customer() {}
+
+    public void addVisit(Visit v) {
+        visits.add(v);
+    }
 
     
 

@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 
 @Entity
 @Table(name="visit")
-public class Visit {
+public class Visit implements Comparable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="visit_id")
@@ -18,25 +18,33 @@ public class Visit {
 	@Column(name="time")
 	private Timestamp time;
 
+	@Column(name="status")
+	private String status;
+
     @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name="bronco_id")
     private Customer customer;
 
-    @OneToMany(cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy="visit", cascade = {CascadeType.ALL})
     private List<VisitActivity> visitActivities;
 
 
 	@Override
 	public String toString() {
-		return String.format("Visit [VisitID=%d, Time= %s", visitID, time.toString());
+		return String.format("Visit [VisitID=%d, Time= %s]", visitID, time.toString());
 	}
 
     public Visit(Customer customer) {
         this.customer = customer;
+        this.status = "Complete"; 
+        customer.addVisit(this);
         this.time = new Timestamp(new Date().getTime());
     }
 
     public Visit() {}
+
+    
+
 
     /**
      * @return int return the visitID
@@ -52,11 +60,28 @@ public class Visit {
         this.visitID = visitID;
     }
 
+    public Timestamp getTime() {
+        return time;
+    }
     /**
      * @param time the time to set
      */
     public void setTime(Timestamp time) {
         this.time = time;
+    }
+
+    /**
+     * @return String return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     /**
@@ -71,6 +96,30 @@ public class Visit {
      */
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    /**
+     * @return List<VisitActivity> return the visitActivities
+     */
+    public List<VisitActivity> getVisitActivities() {
+        return visitActivities;
+    }
+
+    /**
+     * @param visitActivities the visitActivities to set
+     */
+    public void setVisitActivities(List<VisitActivity> visitActivities) {
+        this.visitActivities = visitActivities;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (time.before(((Visit) o).getTime())) {
+            return 1;
+        }
+        else {
+            return -1;
+        }
     }
 
 }

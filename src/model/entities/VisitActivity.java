@@ -35,6 +35,10 @@ public class VisitActivity {
         time = new Timestamp(new Date().getTime());
     }
 
+    public String toString() {
+        return "" + this.activity +": " + this.time.toString();
+    }
+
     /**
      * @param time the time to set
      */
