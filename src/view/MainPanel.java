@@ -66,6 +66,7 @@ public class MainPanel extends JPanel {
                 try {
                     Visit a = list.getSelectedValue();
                     List<VisitActivity> va = RegisterActivityBusiness.getInstance().list(a);
+                    if (va.size() == 0) throw new MessageException("No activities yet");
                     StringBuilder sb = new StringBuilder();
                     for (int i = 0; i < va.size(); i++) {
                         sb.append(va.get(i).toString());
@@ -73,6 +74,7 @@ public class MainPanel extends JPanel {
                     }
                     JOptionPane.showMessageDialog(null, sb.toString());
                 } catch (Exception ee) {
+                    JOptionPane.showMessageDialog(null, ee.getMessage());
                 }
             }
         };

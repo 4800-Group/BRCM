@@ -14,7 +14,8 @@ public class RegisterVisitBusiness {
         return instance = instance == null ? new RegisterVisitBusiness() : instance;
     }
 
-    public void register(Customer customer) throws SQLException{
+    public void register(Customer customer) throws Exception{
+        if (customer==null) throw new MessageException("Customer not found");
         Visit visit = new Visit(customer);
         RegisterVisitDataAccess.getInstance().register(visit);
     }
