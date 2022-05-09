@@ -14,22 +14,30 @@ public class MaintainCustomerBusiness {
         return instance = instance == null ? new MaintainCustomerBusiness() : instance;
     }
 
-    public void create(Customer customer) throws SQLException {
-        // rules
+    public void create(Customer customer) throws Exception {
+        if (customer.getBroncoID().strip().length() == 0) throw new MessageException("Bronco ID not informed");
+        if (customer.getDiscount()<0) throw new MessageException("Discount cannot be negative");
+        if (customer.getFirstName().strip().length() == 0) throw new MessageException("First name not informed");
+        if (customer.getLastName().strip().length() == 0) throw new MessageException("Last name not informed");
         MaintainCustomerDataAccess.getInstance().create(customer);
     }
 
-    public Customer search() throws SQLException {
+    public Customer search() throws Exception {
         if (broncoID == null) return null;
-        return MaintainCustomerDataAccess.getInstance().search(broncoID);
+        Customer c = MaintainCustomerDataAccess.getInstance().search(broncoID);
+        if (c==null) throw new MessageException("Customer not found");
+        return c;
     }
 
-    public void update(Customer customer) throws SQLException {
-        // rules
+    public void update(Customer customer) throws Exception {
+        if (customer.getBroncoID()=="") throw new MessageException("Bronco ID not informed");
+        if (customer.getDiscount()<0) throw new MessageException("Discount cannot be negative");
+        if (customer.getFirstName().strip().length() == 0) throw new MessageException("First name not informed");
+        if (customer.getLastName().strip().length() == 0) throw new MessageException("Last name not informed");
         MaintainCustomerDataAccess.getInstance().update(customer);
     }
 
-    public void delete(Customer customer) throws SQLException {
+    public void delete(Customer customer) throws Exception {
         MaintainCustomerDataAccess.getInstance().delete(customer);
     }
 

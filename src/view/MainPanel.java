@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import antlr.actions.cpp.ActionLexer;
 import model.business.MaintainCustomerBusiness;
+import model.business.MessageException;
 import model.business.RegisterActivityBusiness;
 import model.business.RegisterVisitBusiness;
 import model.entities.*;
@@ -13,24 +14,15 @@ import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.Date;
 
-import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.hibernate.engine.transaction.jta.platform.internal.BorlandEnterpriseServerJtaPlatform;
 
 import model.business.MaintainActivityBusiness;
-import model.business.MaintainCustomerBusiness;
 import model.entities.Activity;
 import model.entities.Customer;
 import java.util.List;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.Date;
 
 public class MainPanel extends JPanel {
@@ -38,7 +30,7 @@ public class MainPanel extends JPanel {
     private DefaultListModel<Visit> model;
 
     private JLabel text1, text2, text3, text4, text5, text6;
-    private JTextField txtID, txtFirst, txtLast, txtDob, txtPhone, txtActivityID;
+    private JTextField txtID, txtFirst, txtLast, txtDiscount, txtPhone, txtActivityID;
     private JPanel maintain;
     private JButton buttonCreate, buttonRead, buttonUpdate, buttonDelete, buttonVisit, buttonActivity;
     private JScrollPane visits;
@@ -54,13 +46,13 @@ public class MainPanel extends JPanel {
         text1 = new JLabel("Bronco ID:  ");
         text2 = new JLabel("First name: ");
         text3 = new JLabel("Last name:  ");
-        text4 = new JLabel("DOB:        ");
+        text4 = new JLabel("Discount:   ");
         text5 = new JLabel("Phone:      ");
         text6 = new JLabel("ActivityID: ");
         txtID = new JTextField(15);
         txtFirst = new JTextField(15);
         txtLast = new JTextField(15);
-        txtDob = new JTextField(15);
+        txtDiscount = new JTextField(15);
         txtPhone = new JTextField(15);
         txtActivityID = new JTextField(15);
         maintain = new JPanel();
@@ -74,6 +66,7 @@ public class MainPanel extends JPanel {
                 try {
                     Visit a = list.getSelectedValue();
                     List<VisitActivity> va = RegisterActivityBusiness.getInstance().list(a);
+                    if (va.size() == 0) throw new MessageException("No activities yet");
                     StringBuilder sb = new StringBuilder();
                     for (int i = 0; i < va.size(); i++) {
                         sb.append(va.get(i).toString());
@@ -81,6 +74,7 @@ public class MainPanel extends JPanel {
                     }
                     JOptionPane.showMessageDialog(null, sb.toString());
                 } catch (Exception ee) {
+                    JOptionPane.showMessageDialog(null, ee.getMessage());
                 }
             }
         };
@@ -91,10 +85,11 @@ public class MainPanel extends JPanel {
                     try {
                         String broncoID = txtID.getText();
                         Date dob = new Date();
+                        float discount = Float.parseFloat(txtDiscount.getText());
                         String fn = txtFirst.getText();
                         String ln = txtLast.getText();
                         String phone = txtPhone.getText();
-                        Customer customer = new Customer(broncoID, fn, ln, phone, dob);
+                        Customer customer = new Customer(broncoID, fn, ln, phone, dob, discount);
                         MaintainCustomerBusiness.getInstance().create(customer);
                         JOptionPane.showMessageDialog(null, "Customer created!");
                     } catch (Exception e) {
@@ -120,15 +115,15 @@ public class MainPanel extends JPanel {
                         MaintainCustomerBusiness mb = MaintainCustomerBusiness.getInstance();
                         mb.setBroncoID(txtID.getText());
                         Customer customer = mb.search();
-                        String broncoID = txtID.getText();
                         Date dob = new Date();
+                        float discount = Float.parseFloat(txtDiscount.getText());
                         String fn = txtFirst.getText();
                         String ln = txtLast.getText();
                         String phone = txtPhone.getText();
                         customer.setFirstName(fn);
                         customer.setLastName(ln);
                         customer.setPhone(phone);
-                        customer.setDob(dob);
+                        customer.setDiscount(discount);
                         mb.update(customer);
                         JOptionPane.showMessageDialog(null, "Updated!");
                     } catch (Exception e) {
@@ -138,8 +133,10 @@ public class MainPanel extends JPanel {
                     try {
                         MaintainCustomerBusiness mb = MaintainCustomerBusiness.getInstance();
                         mb.setBroncoID(txtID.getText());
-                        Customer user = mb.search();
-                        mb.delete(user);
+                        Customer c = mb.search();
+                        int option = JOptionPane.showConfirmDialog(null,String.format("Are you sure you want to delete %s?", c.getFirstName() + ' ' + c.getLastName()), "Delete Activity", JOptionPane.YES_NO_OPTION);
+                        if (option != JOptionPane.YES_OPTION) throw new MessageException("Deletion canceled");
+                        mb.delete(c);
                         JOptionPane.showMessageDialog(null, "Deteled!");
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, e.getMessage());
@@ -219,7 +216,7 @@ public class MainPanel extends JPanel {
         p3.add(txtLast);
         p3.setLayout(new FlowLayout(FlowLayout.CENTER));
         p4.add(text4);
-        p4.add(txtDob);
+        p4.add(txtDiscount);
         p4.setLayout(new FlowLayout(FlowLayout.CENTER));
         p5.add(text5);
         p5.add(txtPhone);
