@@ -164,8 +164,14 @@ public class MainPanel extends JPanel {
                         Collections.sort(visits);
                         System.out.println(customer.getVisits());
                         MaintainActivityBusiness mab = MaintainActivityBusiness.getInstance();
-                        mab.setActivityID(Integer.parseInt(txtActivityID.getText()));
+                        try{
+                            mab.setActivityID(Integer.parseInt(txtActivityID.getText()));
+                        }
+                        catch (Exception e){
+                            throw new MessageException("Invalid activity id");
+                        }
                         Activity activity = mab.search();
+                        if (visits.size()==0) throw new MessageException("No visit recorded yet");
                         RegisterActivityBusiness.getInstance().register(visits.get(0), activity);
                         JOptionPane.showMessageDialog(null, "Activity recorded!");
                     } catch (Exception e) {
