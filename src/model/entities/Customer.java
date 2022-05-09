@@ -57,7 +57,7 @@ public class Customer {
     private Address address;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade={CascadeType.ALL})
-    private List<Visit> visits;
+    private List<Visit> visits = new ArrayList<Visit>();
 
 	@Override
 	public String toString() {
@@ -76,6 +76,10 @@ public class Customer {
     }
 
     public Customer() {}
+
+    public void addVisit(Visit v) {
+        visits.add(v);
+    }
 
     
 

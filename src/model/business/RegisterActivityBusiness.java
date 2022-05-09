@@ -1,5 +1,6 @@
 package model.business;
 import java.sql.SQLException;
+import java.util.List;
 
 import model.dataccess.MaintainActivityDataAccess;
 import model.dataccess.MaintainCustomerDataAccess;
@@ -18,5 +19,9 @@ public class RegisterActivityBusiness {
     public void register(Visit visit, Activity activity) throws SQLException{
         VisitActivity va = new VisitActivity(visit, activity);
         RegisterActivityDataAccess.getInstance().register(va);
+    }
+
+    public List<VisitActivity> list(Visit visit) throws SQLException{
+        return RegisterActivityDataAccess.getInstance().list(visit);
     }
 }
