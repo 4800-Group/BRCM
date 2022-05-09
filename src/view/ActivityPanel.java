@@ -5,20 +5,14 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.hibernate.engine.transaction.jta.platform.internal.BorlandEnterpriseServerJtaPlatform;
 
-import model.business.MaintainActivityBusiness;
-import model.business.MaintainCustomerBusiness;
-import model.entities.Activity;
-import model.entities.Customer;
+import model.entities.*;
 import java.util.List;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import model.business.*;
 import java.util.Date;
 
 public class ActivityPanel extends JPanel {
@@ -102,15 +96,18 @@ public class ActivityPanel extends JPanel {
                     }
                 } else if (event.getSource() == buttonDelete) {
                     try {
+                        Activity a = list.getSelectedValue();
+                        int option = JOptionPane.showConfirmDialog(null,String.format("Are you sure you want to delete %s?", a.getName()), "Delete Activity", JOptionPane.YES_NO_OPTION);
+                        if (option != JOptionPane.YES_OPTION) throw new MessageException("Deletion canceled");
                         MaintainActivityBusiness mb = MaintainActivityBusiness.getInstance();
-                        mb.delete(list.getSelectedValue());
+                        mb.delete(a);
                         int selectedIndex = list.getSelectedIndex();
                         if (selectedIndex != -1) {
                             model.removeElement(list.getSelectedValue());
                         }
                         JOptionPane.showMessageDialog(null, "Deleted!");
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, e.getMessage());
                     }
                 }
             }

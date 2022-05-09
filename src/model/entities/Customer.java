@@ -62,14 +62,15 @@ public class Customer {
 	@Override
 	public String toString() {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		return String.format("Customer [BroncoID=%s, Name=%s %s, Phone=%s, Address=%s, dob=%s", broncoID, firstName, lastName, phone, "", formatter.format(dob));
+		return String.format("Customer [BroncoID=%s, Name=%s %s, Phone=%s, Discount=%s]", broncoID, firstName, lastName, phone, (int)(discount*100)+"%");
 	}
 
-    public Customer(String broncoID, String fn, String ln, String phone, Date dob) {
+    public Customer(String broncoID, String fn, String ln, String phone, Date dob, float discount) {
         this.broncoID = broncoID;
         this.firstName = fn;
         this.lastName = ln;
         this.phone = phone;
+        this.discount = discount;
         this.dob = dob;
         this.address = new Address(100, "Mary", "Pomona", "CA", 91982);
         this.address.setCustomer(this);

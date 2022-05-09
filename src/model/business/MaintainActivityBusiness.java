@@ -16,21 +16,25 @@ public class MaintainActivityBusiness {
         return instance = instance == null ? new MaintainActivityBusiness() : instance;
     }
 
-    public void create(Activity activity) throws SQLException {
-        // rules
+    public void create(Activity activity) throws Exception{
+        if (activity.getCurrentPrice() < 0) throw new MessageException("Negative price not allowed");
+        if (activity.getName().length() == 0) throw new MessageException("Activity name cannot be empty");
         MaintainActivityDataAccess.getInstance().create(activity);
     }
 
-    public Activity search() throws SQLException {
-        return MaintainActivityDataAccess.getInstance().search(activityID);
+    public Activity search() throws Exception {
+        Activity a = MaintainActivityDataAccess.getInstance().search(activityID);
+        if (a==null) throw new MessageException("Activity ID invalid");
+        return a;
     }
 
-    public void update(Activity activity) throws SQLException {
-        // rules
+    public void update(Activity activity) throws Exception {
+        if (activity.getCurrentPrice() < 0) throw new MessageException("Negative price not allowed");
+        if (activity.getName().length() == 0) throw new MessageException("Activity name cannot be empty");
         MaintainActivityDataAccess.getInstance().update(activity);
     }
 
-    public void delete(Activity activity) throws SQLException {
+    public void delete(Activity activity) throws Exception {
         MaintainActivityDataAccess.getInstance().delete(activity);
     }
 
