@@ -11,7 +11,7 @@
 	</head>
 
 	<body>
-		<h1 style="color: black;"> <c:out value="Welcome ${requestScope.Username}!" /></h1>
+		<h1 style="color: black;"> <c:out value="Welcome ${requestScope.Name}!" /></h1>
 	</body>
 	
 </html>

@@ -23,7 +23,7 @@ public class MaintainCustomerBusiness {
     }
 
     public Customer search() throws Exception {
-        if (broncoID == null) return null;
+        if (broncoID == null || broncoID.strip().length() == 0) throw new MessageException("Bronco ID not informed");
         Customer c = MaintainCustomerDataAccess.getInstance().search(broncoID);
         if (c==null) throw new MessageException("Customer not found");
         return c;
