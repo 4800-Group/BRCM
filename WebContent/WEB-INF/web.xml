@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>Authentication</display-name>
+  <display-name>BRCM</display-name>
   <welcome-file-list>
      <welcome-file>view/LoginView.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-    <servlet-name>Authentication</servlet-name>
+    <servlet-name>login</servlet-name>
     <servlet-class>control.LoginControl</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Authentication</servlet-name>
+    <servlet-name>login</servlet-name>
     <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>main</servlet-name>
+    <servlet-class>control.MainControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>main</servlet-name>
+    <url-pattern>/main</url-pattern>
   </servlet-mapping>
 </web-app>

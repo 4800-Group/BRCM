@@ -2,6 +2,9 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,9 +31,17 @@ public class LoginControl extends HttpServlet {
 			MaintainCustomerBusiness mb = MaintainCustomerBusiness.getInstance();
 			mb.setBroncoID(broncoID);
 			Customer customer = mb.search();
-            System.out.println(customer);
 			request.setAttribute("Name", customer.getFirstName() + ' ' + customer.getLastName());
+			request.setAttribute("broncoid", broncoID);
+            RegisterVisitBusiness.getInstance().register(customer);
+	        RegisterVisitBusiness.getInstance().register(customer);
+	        List<Activity> activities = MaintainActivityBusiness.getInstance().list();
+	        request.setAttribute("listCategory", activities);
 			address = "/view/MainView.jsp";
+            List<Visit> visits = customer.getVisits();
+            Collections.sort(visits);
+            Visit mostRecentVisit = visits.get(0);
+            request.setAttribute("activities",RegisterActivityBusiness.getInstance().list(mostRecentVisit));
 		} catch (Exception e) {
 			request.setAttribute("ErrorLogin", e.getMessage());
 			address = "/view/LoginView.jsp";

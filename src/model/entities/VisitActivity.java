@@ -14,7 +14,7 @@ public class VisitActivity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="visit_activity_id")
-    private int VisitActivityID;
+    private int visitActivityID;
 
 	@Column(name="time")
     private Timestamp time;

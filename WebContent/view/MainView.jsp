@@ -11,12 +11,31 @@
 	</head>
 
 	<body>
-		<h1 style="color: black;"> <c:out value="Welcome ${requestScope.Name}!" /></h1>
-		<select name="category">
-			<c:forEach items="${listCategory}" var="category">
-				<option value="${category.id}">${category.name}</option>
-			</c:forEach>
-		</select>
+		<h1 style="color: black;" align="center"> <c:out value="Welcome ${requestScope.Name}!" /></h1>
+        <h2 align="center">Choose activities:</h2>
+        <form action="main" method="post" align="center" style="padding: 10px;">
+            <input type="hidden" name="broncoid" value="${requestScope.broncoid}">  
+            <div align="center">
+                <select name="selection" >
+                    <c:forEach items="${listCategory}" var="category">
+                        <option value="${category.activityID}">${category.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div align="center" style="padding:10px;">
+                    <td align="center"><input type="submit" id="submit" name="submit" value="Register"></td>
+            </div>
+            <table align="center">
+  <c:forEach items="${activities}" var="item">
+    <tr>
+      <td><c:out value="${item}"/></td>
+    </tr>
+  </c:forEach>
+</table>
+        </form>
+        
+        <h1 style="color: red;"> <c:out value="${requestScope.ErrorLogin}" /></h1>
+        
 	</body>
 	
 </html>
