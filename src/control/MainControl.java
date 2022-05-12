@@ -2,6 +2,8 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +13,16 @@ import model.entities.*;
 import model.business.*;
 
 @SuppressWarnings("serial")
-public class LoginControl extends HttpServlet {
+public class MainControl extends HttpServlet {
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doPost(req, resp);
+		// doPost(req, resp);
+        List<Activity> activities = MaintainActivityBusiness.getInstance().list();
+        request.setAttribute("listCategory", activities);
+
+	    RequestDispatcher rd = request.getRequestDispatcher("/view/MainView.jsp");
+		rd.forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -26,11 +33,6 @@ public class LoginControl extends HttpServlet {
 		try {
 			String broncoID = request.getParameter("broncoid");
 			MaintainCustomerBusiness mb = MaintainCustomerBusiness.getInstance();
-			mb.setBroncoID(broncoID);
-			Customer customer = mb.search();
-            System.out.println(customer);
-			request.setAttribute("Name", customer.getFirstName() + ' ' + customer.getLastName());
-			address = "/view/MainView.jsp";
 		} catch (Exception e) {
 			request.setAttribute("ErrorLogin", e.getMessage());
 			address = "/view/LoginView.jsp";
@@ -41,4 +43,5 @@ public class LoginControl extends HttpServlet {
 	}
 	
 }
+
 

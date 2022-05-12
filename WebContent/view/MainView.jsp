@@ -7,11 +7,16 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>User Authentication</title>
+		<title>Today's visit </title>
 	</head>
 
 	<body>
 		<h1 style="color: black;"> <c:out value="Welcome ${requestScope.Name}!" /></h1>
+		<select name="category">
+			<c:forEach items="${listCategory}" var="category">
+				<option value="${category.id}">${category.name}</option>
+			</c:forEach>
+		</select>
 	</body>
 	
 </html>
