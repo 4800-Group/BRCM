@@ -23,16 +23,22 @@
                 </select>
             </div>
             <div align="center" style="padding:10px;">
-                    <td align="center"><input type="submit" id="submit" name="submit" value="Register"></td>
+                <td align="center"><input type="submit" id="submit" name="submit" value="Register"></td>
             </div>
             <table align="center">
-  <c:forEach items="${activities}" var="item">
-    <tr>
-      <td><c:out value="${item}"/></td>
-    </tr>
-  </c:forEach>
-</table>
+                <c:forEach items="${activities}" var="item">
+                    <tr>
+                    <td><c:out value="${item}"/></td>
+                    </tr>
+                </c:forEach>
+            </table>
         </form>
+        <form action="end" method="post" align="center" style="padding: 10px;">
+            <div align="center" style="padding:10px;">
+                <td align="center"><input type="submit" id="submit" name="submit" value="End visit"></td>
+            </div>
+        </form>
+
         
         <h1 style="color: red;"> <c:out value="${requestScope.ErrorLogin}" /></h1>
         
